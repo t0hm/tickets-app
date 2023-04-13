@@ -1,0 +1,19 @@
+<%= render partial: "partials/menu" %>
+
+<div class="container">
+    <span class="bold"><%= current_user.prenom %> <%= current_user.nom %></span>
+    <br/>
+    <%= simple_form_for [@classroom, @ticket], html: {class: ""} do |f| %>
+        <%= f.input :content, label: false, placeholder: "Message ##{@classroom.city}", wrapper_html: {class: ""} %>
+        <%= f.submit "Envoyer", class: "button-primary" %>
+    <% end %>
+
+    <% if !@last_ticket.nil? %>
+        <span class="bold"><%= current_user.prenom %> <%= current_user.nom %></span> <%= @last_ticket.created_at.strftime("%a %b %e à %lh%M %p") %>
+        <p><i class='bx bx-message-dots'></i> <%= @last_ticket.content %></p>
+        <br/>
+        <%= link_to "Annuler mon Ticket", cancel_ticket_path(@last_ticket), data: {turbo_method: :post}, class: "button button-primary bg-red" %>
+        <button onclick="location.reload()" class="button">Rafraîchir</button>
+        <span>Position: <%= current_user.position %></span>
+    <% end %>
+</div>
