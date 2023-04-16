@@ -13,6 +13,7 @@ class TicketsController < ApplicationController
         end
         
         @classroom = Classroom.find(params["classroom_id"])
+        @tickets = @classroom.tickets.where(status: "pending")
 
         if @classroom.id != current_user.classroom_id
             flash.alert = "Tu voulais changer de campus ? :D"
@@ -42,7 +43,7 @@ class TicketsController < ApplicationController
 
             ClassroomChannel.broadcast_to(
                 @classroom, 
-                ["create", render_to_string(partial: "myticket", locals: {last_ticket: @ticket}), render_to_string(partial: "ticket", locals: {ticket: @ticket})]
+                ["create", render_to_string(partial: "myticket", locals: {last_ticket: @ticket}), render_to_string(partial: "ticket", locals: {ticket: @ticket}), current_user.fullname]
             )   
             head :ok
             #render_to_string(partial: "myticket", locals: {ticket: @ticket})
@@ -101,7 +102,7 @@ class TicketsController < ApplicationController
         if ticket.save
             ClassroomChannel.broadcast_to(
                 ticket.classroom, 
-                ["cancel", ticket.id]
+                ["cancel", ticket.id, current_user.fullname_tojs]
             )
             head :ok
             #redirect_to root_path 

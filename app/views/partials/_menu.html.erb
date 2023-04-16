@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
-        <i class='bx bxs-user-circle'></i> <%= current_user.prenom %> <%= current_user.nom %>
+        <%# L'ID fullname est très important pour le fonctionnement du websocket !! %>
+        <i class='bx bxs-user-circle'></i><span id="fullname"><%= current_user.prenom %> <%= current_user.nom %></span>
         <br/>
         <%= link_to "Deconnexion", destroy_user_session_path, data: {turbo_method: :delete}, class: "button button-primary bg-red" %>
         <hr/>

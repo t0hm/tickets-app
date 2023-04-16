@@ -23,4 +23,12 @@ class User < ApplicationRecord
 
     "#{pos}/#{total}"
   end
+
+  def fullname
+    return "#{self.prenom} #{self.nom}"
+  end
+
+  def fullname_tojs
+    return "#{self.prenom}_#{self.nom}"
+  end
 end

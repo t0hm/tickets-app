@@ -13,12 +13,13 @@
         data-classroom-subscription-classroom-id-value="<%= @classroom.id %>"
     >
         <div data-classroom-subscription-target="myTicket">
-                <%= render "tickets/myticket", last_ticket: @last_ticket %>
+            <%= render "tickets/myticket", last_ticket: @last_ticket %>
         </div>
         <div style="display:none;" data-classroom-subscription-target="tickets">
-                <%= render "tickets/myticket", last_ticket: @last_ticket %>
+            <% @tickets.each do |ticket| %>
+                <%= render "tickets/ticket", ticket: ticket %>
+            <% end %>        
         </div>
-
     </div>    
 
 </div>
