@@ -1,9 +1,9 @@
-<% if !@last_ticket.nil? %>
-    <div id="ticket-<%= @last_ticket.id %>">
-        <span class="bold"><%= current_user.prenom %> <%= current_user.nom %></span> <%= @last_ticket.created_at.strftime("%a %b %e à %lh%M %p") %>
-        <p><i class='bx bx-message-dots'></i> <%= @last_ticket.content %></p>
+<% if !last_ticket.nil? %>
+    <div id="ticket-<%= last_ticket.id %>">
+        <span class="bold"><%= current_user.prenom %> <%= current_user.nom %></span> <%= last_ticket.created_at.strftime("%a %b %e à %lh%M %p") %>
+        <p><i class='bx bx-message-dots'></i> <%= last_ticket.content %></p>
         <br/>
-        <%= link_to "Annuler mon Ticket", cancel_ticket_path(@last_ticket), data: {turbo_method: :post}, class: "button button-primary bg-red" %>
+        <%= link_to "Annuler mon Ticket", cancel_ticket_path(last_ticket), data: {turbo_method: :post}, class: "button button-primary bg-red" %>
         <span>Position: <%= current_user.position %></span>
     </div>
 <% end %>

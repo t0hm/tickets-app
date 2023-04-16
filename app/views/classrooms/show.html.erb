@@ -13,5 +13,10 @@
                 <%= render "tickets/ticket", ticket: ticket %>
             <% end %>
         </div>
+        <div class="green-bg" style="display:none;" data-classroom-subscription-target="myTicket">
+            <% @tickets.each do |ticket| %>
+                <%= render "tickets/ticket", ticket: ticket %>
+            <% end %>
+        </div>
     </div>
 </div>

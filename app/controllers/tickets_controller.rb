@@ -42,9 +42,10 @@ class TicketsController < ApplicationController
 
             ClassroomChannel.broadcast_to(
                 @classroom, 
-                ["create", render_to_string(partial: "ticket", locals: {ticket: @ticket})]
-            )
+                ["create", render_to_string(partial: "myticket", locals: {last_ticket: @ticket}), render_to_string(partial: "ticket", locals: {ticket: @ticket})]
+            )   
             head :ok
+            #render_to_string(partial: "myticket", locals: {ticket: @ticket})
             #redirect_to new_classroom_ticket_path(@classroom)
         else
             render new_classroom_ticket_path(@classroom), status: :unprocessable_entity

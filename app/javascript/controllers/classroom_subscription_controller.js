@@ -3,7 +3,7 @@ import { createConsumer } from "@rails/actioncable";
 
 export default class extends Controller {
   static values = { classroomId: Number };
-  static targets = ["tickets"];
+  static targets = ["tickets", "myTicket"];
 
   connect() {
     this.channel = createConsumer().subscriptions.create(
@@ -21,9 +21,11 @@ export default class extends Controller {
 
 function process(data, lui){
   if (data[0] == "create"){
+    lui.myTicketTarget.insertAdjacentHTML("beforeend", data[1]);
+    lui.ticketsTarget.insertAdjacentHTML("beforeend", data[2]);
+    console.log(data[0]);
     console.log(data[1]);
-    lui.ticketsTarget.insertAdjacentHTML("beforeend", data[1]);
-    location.reload();
+    console.log(data[2]);
   }
   else if (data[0] == "cancel"){
     console.log(data[1]);
