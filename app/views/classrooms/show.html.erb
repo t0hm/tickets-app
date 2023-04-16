@@ -7,17 +7,10 @@
         </div>
     </div>    
     <br/>
-    <div class="row">
-        <div class="twelves columns tickets" data-controller="classroom-subscription">
+    <div class="row classroom" data-controller="classroom-subscription" data-classroom-subscription-classroom-id-value="<%= @classroom.id %>">
+        <div class="twelves columns tickets" data-classroom-subscription-target="tickets">
             <% @tickets.each do |ticket| %>
-                <div id="ticket-<%= ticket.id %>">
-                    <span class="bold"><%= ticket.user.prenom %> <%= ticket.user.nom %></span>
-                    <i><%= ticket.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-                    <p><i class='bx bx-message-dots'></i> <%= ticket.content %></p>
-                    <br/>
-                    <%= link_to "Marquer comme terminé", ending_ticket_path(ticket), data: {turbo_method: :post}, class: "button button-primary bg-green" %>
-                </div>
-            <br/>
+                <%= render "tickets/ticket", ticket: ticket %>
             <% end %>
         </div>
     </div>

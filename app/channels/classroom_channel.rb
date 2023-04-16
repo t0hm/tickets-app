@@ -1,11 +1,11 @@
 class ClassroomChannel < ApplicationCable::Channel
-  def subscribed
-    # stream_from "some_channel"
-    classroom = Classroom.find(params[:id])
-    stream_from classroom
+    def subscribed
+      @classroom = Classroom.find(params[:id])
+      stream_for @classroom
+    end
+  
+    def unsubscribed
+      # Any cleanup needed when channel is unsubscribed
+    end
   end
-
-  def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-  end
-end
+  
