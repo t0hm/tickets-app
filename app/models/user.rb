@@ -21,6 +21,28 @@ class User < ApplicationRecord
     end
     total = tickets.count
 
-    "#{pos}/#{total}"
+    pos
+  end
+
+  def current_tickets_count
+    tickets = self.classroom.tickets.where(status: 0)
+    tickets_users_ids = tickets.map { |t| t.user_id }
+    pos = tickets_users_ids.find_index(self.id)
+    if pos.nil?
+      pos = 1
+    else
+      pos += 1
+    end
+    total = tickets.count
+
+    total
+  end
+
+  def fullname
+    return "#{self.prenom} #{self.nom}"
+  end
+
+  def fullname_tojs
+    return "#{self.prenom}_#{self.nom}"
   end
 end

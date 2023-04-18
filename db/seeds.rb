@@ -6,15 +6,38 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+students = [
+    ["Thomas", "Colombet", 1],
+    ["Anthony", "Corgier", 1],
+    ["Sami", "Guera", 0],
+    ["Alexia", "Benigno", 0],
+    ["Florian", "Dumas", 0],
+    ["Amélia", "Callamard", 0],
+    ["Raphaël", "Daul", 0],
+    ["Emre", "Kocak", 0],
+    ["Sarah", "Aidoudi", 0],
+    ["Alexis", "Joubert", 0],
+    ["Leo", "Muller", 0],
+    ["Dimitri", "Louche", 0],
+    ["Fahami", "Mohamed Ali", 0],
+    ["Medhi", "Alane", 0],
+    ["Hamza", "Benkejjane", 0],
+    ["Steven", "Bui", 0],
+    ["Nadir", "Chaïeb", 0],
+    ["Hadjer", "Abdelli", 0],
+    ["Kadidiatou", "Keita", 0],
+    ["Christophe", "Lapierre", 0],
+    ["Sophiane", "Slimani", 0],
+    ["Olivier", "Ferrier", 0],
+]
+
 Classroom.create(city: 0)
 Classroom.create(city: 1)
 Classroom.create(city: 2)
 Classroom.create(city: 3)
-
 puts "Classrooms créés"
-User.create(email: "thomas@demo.com", password: "123456", prenom: "Thomas", nom: "Colombet", classroom_id: Classroom.first.id, status: 1)
-puts "Utilisateur Thomas créé"
-User.create(email: "christophe@demo.com", password: "123456", prenom: "Christophe", nom: "Lapierre", classroom_id: Classroom.first.id, status: 0)
-puts "Utilisateur Christophe créé"
-User.create(email: "raphael@demo.com", password: "123456", prenom: "Raphaël", nom: "Daul", classroom_id: Classroom.first.id, status: 0)
-puts "Utilisateur Raphaël créé"
+
+students.each_with_index do |student, i|
+    User.create(email: "#{students[i][0]}@demo.com", password: "123456", prenom: students[i][0], nom: students[i][1], classroom_id: Classroom.first.id, status: students[i][2])
+    puts "#{students[i][0]} #{students[i][1]} créé."
+end

@@ -12,4 +12,6 @@ Rails.application.routes.draw do
 
   post "tickets/:id/done", to: "tickets#ending_ticket", as: "ending_ticket"
   post "tickets/:id/cancel", to: "tickets#cancel_ticket", as: "cancel_ticket"
+
+  # mount ActionCable.server => '/cable'
 end

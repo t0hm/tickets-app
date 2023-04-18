@@ -13,6 +13,7 @@ class TicketsController < ApplicationController
         end
         
         @classroom = Classroom.find(params["classroom_id"])
+        @tickets = @classroom.tickets.where(status: "pending")
 
         if @classroom.id != current_user.classroom_id
             flash.alert = "Tu voulais changer de campus ? :D"
@@ -39,7 +40,14 @@ class TicketsController < ApplicationController
         @ticket.user = current_user
         @ticket.status = 0
         if @ticket.save
-            redirect_to new_classroom_ticket_path(@classroom)
+
+            ClassroomChannel.broadcast_to(
+                @classroom, 
+                ["create", render_to_string(partial: "myticket", locals: {last_ticket: @ticket}), render_to_string(partial: "ticket", locals: {ticket: @ticket}), current_user.fullname]
+            )   
+            head :ok
+            #render_to_string(partial: "myticket", locals: {ticket: @ticket})
+            #redirect_to new_classroom_ticket_path(@classroom)
         else
             render new_classroom_ticket_path(@classroom), status: :unprocessable_entity
         end
@@ -61,7 +69,12 @@ class TicketsController < ApplicationController
 
         ticket.status = 1
         if ticket.save
-            redirect_to classroom_path(ticket.classroom)
+            ClassroomChannel.broadcast_to(
+                ticket.classroom, 
+                ["valid", ticket.id, current_user.fullname]
+            )
+            head :ok
+            #redirect_to classroom_path(ticket.classroom)
         end
     end
 
@@ -70,8 +83,14 @@ class TicketsController < ApplicationController
             redirect_to root_path 
             return
         end
-
+        
         ticket = Ticket.find(params[:id])
+        
+        if current_user != ticket.user
+            flash.alert = "Petit malin.. :p"
+            redirect_to root_path 
+            return
+        end
 
         if !ticket.pending?
             flash.alert = "Ce ticket a été validé par un formateur"
@@ -81,7 +100,12 @@ class TicketsController < ApplicationController
 
         ticket.status = 2
         if ticket.save
-            redirect_to root_path 
+            ClassroomChannel.broadcast_to(
+                ticket.classroom, 
+                ["cancel", ticket.id, current_user.fullname_tojs]
+            )
+            head :ok
+            #redirect_to root_path 
         end
     end
 
