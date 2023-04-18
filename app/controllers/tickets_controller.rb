@@ -71,7 +71,7 @@ class TicketsController < ApplicationController
         if ticket.save
             ClassroomChannel.broadcast_to(
                 ticket.classroom, 
-                ["valid", ticket.id]
+                ["valid", ticket.id, current_user.fullname]
             )
             head :ok
             #redirect_to classroom_path(ticket.classroom)

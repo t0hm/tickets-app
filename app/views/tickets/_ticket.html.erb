@@ -2,7 +2,5 @@
     <span id="<%= ticket.user.fullname_tojs %>" class="bold"><%= ticket.user.prenom %> <%= ticket.user.nom %></span>
     <i><%= ticket.created_at.strftime("%a %b %e à %lh%M %p") %></i>
     <p><i class='bx bx-message-dots'></i> <%= ticket.content %></p>
-    <br/>
     <%= link_to "Marquer comme terminé", ending_ticket_path(ticket), data: {turbo_method: :post}, class: "button button-primary bg-green" %>
 </div>
-<br/>

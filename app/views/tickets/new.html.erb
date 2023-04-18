@@ -12,10 +12,10 @@
         data-controller="classroom-subscription"
         data-classroom-subscription-classroom-id-value="<%= @classroom.id %>"
     >
-        <div data-classroom-subscription-target="myTicket">
+        <div id="my-ticket" data-classroom-subscription-target="myTicket">
             <%= render "tickets/myticket", last_ticket: @last_ticket %>
         </div>
-        <div style="display:none;" data-classroom-subscription-target="tickets">
+        <div id="hidden-tickets" style="display:none;" data-classroom-subscription-target="tickets">
             <% @tickets.each do |ticket| %>
                 <%= render "tickets/ticket", ticket: ticket %>
             <% end %>        

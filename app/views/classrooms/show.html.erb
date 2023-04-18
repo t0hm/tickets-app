@@ -3,12 +3,13 @@
     <div class="row">
         <div class="twelves columns">
             <h1>#<%= @classroom.city %></h1>
-            <button onclick="location.reload()" class="button">Rafraîchir</button>
+            <%# <button onclick="location.reload()" class="button">Rafraîchir</button> %>
         </div>
     </div>    
     <br/>
+    <span id="my-ticket"></span>
     <div class="row classroom" data-controller="classroom-subscription" data-classroom-subscription-classroom-id-value="<%= @classroom.id %>">
-        <div class="twelves columns tickets" data-classroom-subscription-target="tickets">
+        <div id="ticketscontainer" class="twelves columns tickets" data-classroom-subscription-target="tickets">
             <% @tickets.each do |ticket| %>
                 <%= render "tickets/ticket", ticket: ticket %>
             <% end %>
